@@ -1,0 +1,16 @@
+<div class="navbar navbar-inverse"ng-controller="headerCtrl">
+    <div class="logo pull-left">
+        <a class="navbar-brand" ui-sref="FIXME">SAMPLEAPP</a>
+    </div>
+
+    <div class="right pull-right">
+        <ul class="navbar-nav nav auth-link" ng-show="!authenticated">
+            <li><a ui-sref='FIXME'>Join</a></li>
+            <li><a ng-click="login()">Log In</a></li>
+        </ul>
+        <ul class="navbar-nav nav auth-link" ng-show="authenticated">
+            <li><a ng-click="logout()">Log out</a></li>
+        </ul>
+    </div>
+</div>
+
