@@ -13,6 +13,7 @@ app.get('/', function (req, res) {
 });
 
 app.use('/js', express.static(__dirname + '/client/js'));
+app.use(express.static(__dirname+'/client'));
 
 app.post('/api/meetups', meetupController.create);
 app.get('/api/meetups', meetupController.list);
@@ -20,3 +21,4 @@ app.get('/api/meetups', meetupController.list);
 app.listen(3000, function() {
 	console.log('I\'m listening.')
 })
+
