@@ -8,12 +8,11 @@ mongoose.connect('mongodb://localhost:27017/mean-demo');
 
 app.use(bodyParser());
 
+app.use(express.static(__dirname+'/client'));
+
 app.get('/', function (req, res) {
 	res.sendFile(__dirname + '/client/views/index.html');
 });
-
-app.use('/js', express.static(__dirname + '/client/js'));
-app.use(express.static(__dirname+'/client'));
 
 app.post('/api/meetups', meetupController.create);
 app.get('/api/meetups', meetupController.list);
