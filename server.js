@@ -24,6 +24,7 @@ app.get('/', function (req, res) {
 // REST interface
 app.post('/api/meetups', meetupController.create);
 app.get('/api/meetups', meetupController.list);
+app.delete('/api/meetup/:id', meetupController.delete);
 
 // let's start the server app for real
 app.listen(3000, function() {

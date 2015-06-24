@@ -2,7 +2,8 @@
 	<h1>There are {{meetups.length}} meetups</h1>
 	<ul>
 		<li ng-repeat="meetup in meetups">
-			{{meetup.name}}
+			<span>{{meetup.name}}</span>
+			<a ng-click="deleteMeetup(meetup._id)"><img src="resources/icons/remove.svg" style="width: 1%; height: auto;"></a>
 		</li>
 	</ul>
 	<form ng-submit="createMeetup()">
