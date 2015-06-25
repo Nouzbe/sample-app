@@ -16,15 +16,15 @@ app.use(bodyParser.urlencoded({
 // the client app has access to the client directory
 app.use(express.static(__dirname+'/client'));
 
-// Express delivers index.html, from there on ngRoute is the boss
-app.get('/', function (req, res) {
-	res.sendFile(__dirname + '/client/views/index.html');
-});
-
 // REST interface
 app.post('/api/meetups', meetupController.create);
 app.get('/api/meetups', meetupController.list);
 app.delete('/api/meetup/:id', meetupController.delete);
+
+// If the url is not part of the REST API, Express delivers index.html and from there on ngRoute is the boss
+app.get('*', function (req, res) {
+	res.sendFile(__dirname + '/client/views/index.html');
+});
 
 // let's start the server app for real
 app.listen(3000, function() {
