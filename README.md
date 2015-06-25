@@ -1,6 +1,6 @@
 Sample-app is a [MEAN](https://github.com/linnovate/mean/blob/master/README.md) based wanna-be-simplest generic web application, to be used as a starting point to create specific applications.
 
-MEAN stands for [MongoDB](http://www.mongodb.org/), [Express](http://expressjs.com/), [AngularJS](http://angularjs.org/) and [Node.js](http://www.nodejs.org/) applications. 
+MEAN stands for [MongoDB](http://www.mongodb.org/), [Express](http://expressjs.com/), [AngularJS](http://angularjs.org/) and [Node.js](http://www.nodejs.org/). 
 
 ## Install
 **1 - Get node and mongo installed. Check the links above if needed.**
@@ -43,4 +43,4 @@ You can do that by using [Chrome DevTools](https://developer.chrome.com/devtools
 
 
 ## Get a glance at the data
-We recommend [Robomongo](http://robomongo.org/). It's a nice shell-centric mongo client GUI.
+We recommend [Robomongo](http://robomongo.org/). It's a nice mongo client GUI.
