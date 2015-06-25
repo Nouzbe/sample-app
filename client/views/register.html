@@ -1,1 +1,37 @@
-<h1>Hello from register page !</h1>
+<div class="col-md-4 col-md-offset-4">
+    <form id="register_form" ng-submit="register()">
+        <h2>Sign Up</h2>
+
+        <div class="input-wrapper">
+            <input required id="name" type="text" name="name" placeholder="User name"
+                   ng-model="user.name">
+
+            <span class="alert alert-danger" ng-show="error.username">Please enter a correct info</span>
+        </div>
+
+        <div class="input-wrapper">
+            <input required id="email" type="email" name="email" placeholder="Email address"
+                   ng-model="user.email">
+
+            <span class="alert alert-danger" ng-show="error.email">Please enter a correct info</span>
+        </div>
+
+        <div class="input-wrapper">
+            <input required id="password_block" name="password" type="Password"
+                   placeholder="Password" ng-model="reg.user.password">
+
+            <span class="alert alert-danger" ng-show="error.password">Please enter a correct info</span>
+        </div>
+        <div class="input-wrapper">
+            <input required id="confirm_password" name="confirm_password" type="Password"
+                   placeholder="Confirm password" ng-model="reg.user.confirmPassword">
+
+            <span class="alert alert-danger" ng-show="error.confirm-password">Please enter a correct info</span>
+        </div>
+
+        <div class="button_register">
+            <button type="submit" class="submit_button">Sign up</button>
+            <p>Already have an account? <a href="/#login">Log in</a></p>
+        </div>
+    </form>
+</div>
