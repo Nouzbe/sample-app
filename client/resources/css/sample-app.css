@@ -1,3 +1,38 @@
-.test {
-	color: red;
+.form-container {
+	border-radius: 15px;
+    padding: 20px;
+    border: 2px solid #999;
+}
+
+h2 {
+	margin-bottom: 30px;
+}
+
+.login-input, .register-input {
+	border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    width: 50%;
+}
+
+.login-input:focus, .register-input:focus {
+    outline: 0;
+    box-shadow: 0 0 5px blue;
+}
+
+.submit-button {
+	margin: 10px;
+	border-radius: 5px;
+    padding: 5px;
+}
+
+.submit-button:focus {
+	outline: 0;
+    box-shadow: 0 0 5px blue;
+}
+
+.login-statements, .register-statements {
+	font-size: 90%;
+	margin: 10px;
+	text-align: right;
 }
