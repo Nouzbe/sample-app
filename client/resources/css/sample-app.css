@@ -1,4 +1,4 @@
-.form-container {
+.form-login, .form-register {
 	border-radius: 15px;
     padding: 20px;
     border: 2px solid #999;
@@ -35,4 +35,16 @@ h2 {
 	font-size: 90%;
 	margin: 10px;
 	text-align: right;
+}
+
+.full-page-container {
+	width: 100%;
+	height:80%;
+	position:fixed;
+	display: table;
+}
+
+.centered-container {
+	display: table-cell;
+    vertical-align: middle;
 }
