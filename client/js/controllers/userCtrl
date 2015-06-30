@@ -1,0 +1,3 @@
+app.controller('userCtrl', ['$scope', '$resource', function ($scope, $resource){
+
+}]);

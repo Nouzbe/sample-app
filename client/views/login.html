@@ -6,12 +6,12 @@
             <form id="login_form" ng-submit="login()">
                 <div class="input-wrapper">
                     <input class="login-input" required id="name" type="text" name="name" placeholder="User name"
-                           ng-model="user.name">
+                           ng-model="username">
                     <span class="alert alert-danger" ng-show="error.username">Please enter a correct info</span>
                 </div>
                 <div class="input-wrapper">
                     <input class="login-input" required id="password_block" name="password" type="Password"
-                           placeholder="Password" ng-model="reg.user.password">
+                           placeholder="Password" ng-model="password">
 
                     <span class="alert alert-danger" ng-show="error.password">Please enter a correct info</span>
                 </div>
