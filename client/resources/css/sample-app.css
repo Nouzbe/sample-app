@@ -48,3 +48,7 @@ h2 {
 	display: table-cell;
     vertical-align: middle;
 }
+
+.author {
+	color: grey;
+}

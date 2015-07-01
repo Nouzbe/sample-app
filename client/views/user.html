@@ -1,1 +1,24 @@
-<h1>Welcome on the user page !</h1>
+<div class="col-md-offset-1 col-md-5">
+	<h1>Welcome {{user}} !</h1>
+	<h2>You have {{objects.length}} objects</h2>
+	<ul>
+		<li ng-repeat="object in objects">
+			<span>{{object.name}}</span>
+			<a ng-click="deleteObject(object._id)"><img src="resources/icons/remove.svg" style="width: 2%; height: auto;"></a>
+			<a ng-click="publishObject(object)"><img src="resources/icons/publish.svg" style="width: 2%; height: auto;"></a>
+		</li>
+	</ul>
+	<form ng-submit="createObject()">
+		<input type ="text" placeholder="Object name" ng-model="objectName"></input>
+		<button type="submit">Add</button>
+	</form>
+</div>
+<div class="col-md-5">
+	<h2>There are {{publicObjects.length}} public objects</h2>
+	<ul>
+		<li ng-repeat="publicObject in publicObjects">
+			<span class="author">{{publicObject.user_name}}:</span>
+			<span>{{publicObject.name}}</span>
+		</li>
+	</ul>
+</div>

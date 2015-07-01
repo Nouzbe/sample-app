@@ -7,7 +7,8 @@ var express 			= require('express'),
 	passport 			= require('passport'),
 	flash				= require('connect-flash'),
 	session 			= require('express-session'),
-	meetupController 	= require('./server/controllers/meetup-controller');
+	meetupController 	= require('./server/controllers/meetup-controller'),
+	objectController 	= require('./server/controllers/object-controller');
 
 // connect to the db
 mongoose.connect(config.db);
@@ -29,10 +30,13 @@ require('./configuration/passport')(passport);
 app.use(express.static(__dirname+'/client'));
 
 // REST interface
-// meetups
-app.post('/api/meetups', meetupController.create);
-app.get('/api/meetups', meetupController.list);
-app.delete('/api/meetup/:id', meetupController.delete);
+// user objects
+app.post('/api/object', objectController.create);
+app.get('/api/object/:user', objectController.list);
+app.put('/api/object/:id', objectController.publish)
+app.delete('/api/object/:id', objectController.delete);
+// public objects
+app.get('/api/public/object', objectController.listPublic);
 // users
 app.post('/api/register', passport.authenticate('local-signup', {
 	successRedirect : '/client/views/index.html',
