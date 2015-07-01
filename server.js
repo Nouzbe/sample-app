@@ -7,7 +7,6 @@ var express 			= require('express'),
 	passport 			= require('passport'),
 	flash				= require('connect-flash'),
 	session 			= require('express-session'),
-	meetupController 	= require('./server/controllers/meetup-controller'),
 	objectController 	= require('./server/controllers/object-controller');
 
 // connect to the db
