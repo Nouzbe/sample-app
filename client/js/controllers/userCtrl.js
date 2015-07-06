@@ -1,15 +1,25 @@
-app.controller('userCtrl', ['$scope', '$http', function ($scope, $http){
+app.controller('userCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http){
 
-	$scope.user = 'bam';
-	
 	$scope.getList = function() {
-		$http.get('/api/object/'.concat($scope.user)).
-		success(function(data, status, headers, config) {
-			$scope.objects = data;
-		}).
-		error(function(data, status, headers, config) {
-			// we'll see
-		});
+		$http.get('/api/isloggedin').
+            success(function(result){
+            	var user = result.local.username;
+                // authenticated
+                if(user !== '0'){
+                    $scope.username = user;
+                    $http.get('/api/object/'.concat($scope.username)).
+						success(function(data, status, headers, config) {
+							$scope.objects = data;
+						}).
+						error(function(data, status, headers, config) {
+							// we'll see
+						});
+                }
+                // not authenticated
+                else {
+                    $location.url('/login');
+                }
+            });
 	}
 
 	$scope.getPublicList = function() {
@@ -35,7 +45,7 @@ app.controller('userCtrl', ['$scope', '$http', function ($scope, $http){
 	$scope.createObject = function() {
 		var object =  {
 			name: $scope.objectName,
-			user_name: $scope.user,
+			user_name: $scope.username,
 			pub: false
 		}
 		$http.post('/api/object', object).
@@ -59,6 +69,6 @@ app.controller('userCtrl', ['$scope', '$http', function ($scope, $http){
 		})
 	}
 
-	$scope.getList();
 	$scope.getPublicList();
+	$scope.getList();
 }]);

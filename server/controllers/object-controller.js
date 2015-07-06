@@ -9,8 +9,11 @@ module.exports.create = function(req, res) {
 }
 
 module.exports.list = function(req, res) {
+	if(!req.isAuthenticated())
+		res.statusCode = 401;
+	else
 	console.log('Getting ' + req.params.user + '\'s objects');
-	UserObject.find({}, function (err, results){
+	UserObject.find({user_name: req.params.user}, function (err, results){
 		res.json(results);
 	});
 }

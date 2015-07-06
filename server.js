@@ -45,6 +45,13 @@ app.post('/api/login', passport.authenticate('local-login', {
 	successRedirect : '/client/views/index.html',
 	failureRedirect : '/client/views/index.html'
 }));
+app.get('/api/isloggedin', function(req, res) {
+	res.send(req.isAuthenticated() ? req.user : '0');
+});
+app.post('/api/logout', function(res, req) {
+	req.logout();
+	res.send(200);
+})
 
 // If the url is not part of the REST API, Express delivers index.html and from there on ngRoute is the boss
 app.get('*', function (req, res) {
