@@ -3,15 +3,26 @@ app.directive('header', function () {
         restrict: 'E',
         replace: true,
         templateUrl: "/partials/header.html",
-        controller: ['$scope', '$filter', function ($scope, $filter) {
-            $scope.authenticated = false;
-			
-			$scope.logout = function(){
-				$scope.authenticated = false;
-			};
+        controller: ['$scope', '$location', '$http','currentSession', function ($scope, $location, $http, currentSession) {
+            $scope.isAuthenticated = function(){
+                return currentSession.isAuthenticated();
+            }
+	        $scope.register = function(){
+                $location.url('/register');
+            };
 			$scope.login = function(){
-				$scope.authenticated = true;
+				$location.url('/login');
 			}
+            $scope.logout = function(){
+                $http.get('/api/logout').
+                    success(function(data, status, headers, config) {
+                        $location.url('/');
+                        currentSession.setAuthenticated(false);
+                    }).
+                    error(function(data, status, headers, config) {
+                        // we'll see
+                    });
+            };
         }]
     }
 });

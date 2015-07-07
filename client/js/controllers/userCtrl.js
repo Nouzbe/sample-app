@@ -1,25 +1,13 @@
-app.controller('userCtrl', ['$scope', '$location', '$http', function ($scope, $location, $http){
+app.controller('userCtrl', ['$scope', '$http', 'currentSession', function ($scope, $http, currentSession){
 
 	$scope.getList = function() {
-		$http.get('/api/isloggedin').
-            success(function(result){
-            	var user = result.local.username;
-                // authenticated
-                if(user !== '0'){
-                    $scope.username = user;
-                    $http.get('/api/object/'.concat($scope.username)).
-						success(function(data, status, headers, config) {
-							$scope.objects = data;
-						}).
-						error(function(data, status, headers, config) {
-							// we'll see
-						});
-                }
-                // not authenticated
-                else {
-                    $location.url('/login');
-                }
-            });
+        $http.get('/api/object/'.concat($scope.username)).
+			success(function(data, status, headers, config) {
+				$scope.objects = data;
+			}).
+			error(function(data, status, headers, config) {
+				// we'll see
+			});
 	}
 
 	$scope.getPublicList = function() {
@@ -69,6 +57,8 @@ app.controller('userCtrl', ['$scope', '$location', '$http', function ($scope, $l
 		})
 	}
 
+	currentSession.checkLoggedIn();
+	$scope.username = currentSession.getUsername();
 	$scope.getPublicList();
 	$scope.getList();
 }]);
