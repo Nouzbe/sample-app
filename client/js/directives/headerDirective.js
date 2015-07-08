@@ -4,12 +4,10 @@ app.directive('header', function () {
         replace: true,
         templateUrl: "/partials/header.html",
         controller: ['$scope', '$location', '$http','currentSession', function ($scope, $location, $http, currentSession) {
-            $scope.isAuthenticated = function(){
-                return currentSession.isAuthenticated();
-            }
+            $scope.session = currentSession;
 	        $scope.register = function(){
                 $location.url('/register');
-            };
+            }
 			$scope.login = function(){
 				$location.url('/login');
 			}

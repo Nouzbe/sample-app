@@ -4,12 +4,12 @@
     </div>
 
     <div class="right pull-right">
-        <ul class="navbar-nav nav auth-link" ng-show="!isAuthenticated()">
+        <ul class="navbar-nav nav auth-link" ng-show="!session.authenticated">
             <li><a href="#" ng-click="register()">Join</a></li>
             <li><a href="#" ng-click="login()">Log In</a></li>
         </ul>
-        <ul class="navbar-nav nav auth-link" ng-show="isAuthenticated()">
-            <li><a href="#" ng-click="logout()">Log out</a></li>
+        <ul class="navbar-nav nav auth-link" ng-show="session.authenticated">
+            <li><a href="#" ng-click="logout()">{{session.username}}</a></li>
         </ul>
     </div>
 </div>

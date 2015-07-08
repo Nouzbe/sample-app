@@ -19,10 +19,9 @@ app.provider('currentSession', function () {
                 var d = $q.defer();
                 $http.get('/api/isloggedin').
                     success(function(result){
-                        var user = result.local.username;
                         // authenticated
-                        if(user !== '0'){
-                            currentSessionProvider.setUsername(user);
+                        if(result !== '0'){
+                            currentSessionProvider.setUsername(result.local.username);
                             currentSessionProvider.setAuthenticated(true);
                             d.resolve();
                         }
