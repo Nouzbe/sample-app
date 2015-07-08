@@ -1,5 +1,5 @@
 app.provider('currentSession', function () {
-    this.$get = ['$http', '$location', function ($http, $location) {
+    this.$get = ['$http', '$location', '$q', function ($http, $location, $q) {
         var currentSessionProvider = {
             username: null,
             authenticated: null,
@@ -16,6 +16,7 @@ app.provider('currentSession', function () {
                 this.username = username;
             },
             checkLoggedIn: function() {
+                var d = $q.defer();
                 $http.get('/api/isloggedin').
                     success(function(result){
                         var user = result.local.username;
@@ -23,12 +24,15 @@ app.provider('currentSession', function () {
                         if(user !== '0'){
                             currentSessionProvider.setUsername(user);
                             currentSessionProvider.setAuthenticated(true);
+                            d.resolve();
                         }
                         // not authenticated
                         else {
                             $location.url('/login');
+                            d.reject();
                         }
                     });
+                return d.promise;
             }
         };
         return currentSessionProvider;

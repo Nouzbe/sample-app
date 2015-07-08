@@ -57,8 +57,9 @@ app.controller('userCtrl', ['$scope', '$http', 'currentSession', function ($scop
 		})
 	}
 
-	currentSession.checkLoggedIn();
-	$scope.username = currentSession.getUsername();
-	$scope.getPublicList();
-	$scope.getList();
+	currentSession.checkLoggedIn().then(function(){
+		$scope.username = currentSession.getUsername();
+		$scope.getPublicList();
+		$scope.getList();
+	});
 }]);
