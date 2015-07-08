@@ -8,9 +8,12 @@
             <li><a href="#" ng-click="register()">Join</a></li>
             <li><a href="#" ng-click="login()">Log In</a></li>
         </ul>
-        <ul class="navbar-nav nav auth-link" ng-show="session.authenticated">
-            <li><a href="#" ng-click="logout()">{{session.username}}</a></li>
+        <ul class="navbar-nav nav auth-link btn-group" ng-show="session.authenticated">
+            <li><a href="" data-toggle="dropdown" data-bind="label">{{session.username}}</a>
+                <ul class="dropdown-menu pull-right">
+                    <li><a href="#" ng-click="logout()">Log out</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>
-

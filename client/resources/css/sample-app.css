@@ -52,3 +52,11 @@ h2 {
 .author {
 	color: grey;
 }
+
+.dropdown-menu, .pull-right {
+	text-align: right;
+}
+
+.dropdown-menu {
+    min-width: 0px;
+}
