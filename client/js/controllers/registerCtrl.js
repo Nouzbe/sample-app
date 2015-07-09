@@ -1,14 +1,29 @@
-app.controller('registerCtrl', ['$scope', '$resource', '$location', function ($scope, $resource, $location){
+app.controller('registerCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location){
 
-	var Register = $resource('/api/register');
+	$scope.error = {
+		username: null,
+		email: null,
+		password: null,
+		confirmPassword: null
+	};
 
 	$scope.register = function() {
-		var register = new Register();
-		register.username = $scope.username;
-		register.email = $scope.email;
-		register.password = $scope.password;
-		register.$save(function (result){
-			$location.url('/user');
-		});
+		if($scope.password !== $scope.confirmPassword){
+			$scope.error.confirmPassword = 'Looks like a typo.';
+		}
+		else {
+			var register = {
+				username: $scope.username,
+				email: $scope.email,
+				password: $scope.password
+			};
+			$http.post('/api/register', register).
+				success(function(data, status, headers, config) {
+					$location.url('/user');
+				}).
+				error(function(data, status, headers, config) {
+					$scope.error.username = 'That\'s already taken.';
+				});
+		}
 	}
 }]);

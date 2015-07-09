@@ -1,13 +1,21 @@
-app.controller('loginCtrl', ['$scope', '$resource', '$location', function ($scope, $resource, $location){
-
-	var Login = $resource('/api/login');
+app.controller('loginCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location){
 	
+	$scope.error = {
+		username: 'name',
+		password: 'pwd'
+	}
+
 	$scope.login = function() {
-		var login = new Login();
-		login.username = $scope.username;
-		login.password = $scope.password;
-		login.$save(function (result){
-			$location.url('/user');
-		});
+		var login = {
+			username: $scope.username,
+			password: $scope.password
+		}
+		$http.post('/api/login', login).
+			success(function(data, status, headers, config) {
+				$location.url('/user');
+			}).
+			error(function(data, status, headers, config) {
+				// we'll see
+			});
 	}
 }]);

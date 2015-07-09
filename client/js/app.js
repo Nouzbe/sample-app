@@ -3,8 +3,7 @@ var app = angular.module('sample-app', ['ngResource', 'ngRoute']).
 			$locationProvider.html5Mode(true);
 			$routeProvider.
 				when("/", {
-					templateUrl: "/../views/home.html",
-					controller: "meetupCtrl"
+					templateUrl: "/../views/home.html"
 				}).
 				when("/register", {
 					templateUrl: "/../views/register.html",
