@@ -5,7 +5,6 @@ var express 			= require('express'),
 	mongoose			= require('mongoose'),
 	config 				= require('./configuration/configuration.js'),
 	passport 			= require('passport'),
-	flash				= require('connect-flash'),
 	session 			= require('express-session'),
 	objectController 	= require('./server/controllers/object-controller');
 
@@ -22,7 +21,6 @@ app.use(bodyParser.urlencoded({
 app.use(session({secret: 'bamtechnologies'}));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 require('./configuration/passport')(passport);
 
 // the client app has access to the client directory
