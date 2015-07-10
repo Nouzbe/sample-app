@@ -3,13 +3,12 @@ var express 			= require('express'),
 	bodyParser 			= require('body-parser'),
 	cookieParser 		= require('cookie-parser'),
 	mongoose			= require('mongoose'),
-	config 				= require('./configuration/configuration.js'),
 	passport 			= require('passport'),
 	session 			= require('express-session'),
 	objectController 	= require('./server/controllers/object-controller');
 
 // connect to the db
-mongoose.connect(config.db);
+mongoose.connect('mongodb://localhost:27017/mean-demo');
 
 app.use(cookieParser());
 // http bodies parser
@@ -18,10 +17,14 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 //required for passport
-app.use(session({secret: 'bamtechnologies'}));
+app.use(session({
+	secret: 'bamtechnologies',
+	resave: true,
+	saveUninitialized: true
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-require('./configuration/passport')(passport);
+require('./server/passport')(passport);
 
 // the client app has access to the client directory
 app.use(express.static(__dirname+'/client'));
