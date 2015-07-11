@@ -4,6 +4,7 @@ var express 			= require('express'),
 	cookieParser 		= require('cookie-parser'),
 	mongoose			= require('mongoose'),
 	passport 			= require('passport'),
+	flash 				= require('connect-flash'),
 	session 			= require('express-session'),
 	objectController 	= require('./server/controllers/object-controller');
 
@@ -24,6 +25,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 require('./server/passport')(passport);
 
 // the client app has access to the client directory
@@ -57,6 +59,7 @@ app.get('/api/logout', function (req, res){
 
 // If the url is not part of the REST API, Express delivers index.html and from there on ngRoute is the boss
 app.get('*', function (req, res) {
+	res.header('Message', req.flash('message'));
 	res.sendFile(__dirname + '/client/views/index.html');
 });
 

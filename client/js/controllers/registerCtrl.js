@@ -19,7 +19,12 @@ app.controller('registerCtrl', ['$scope', '$http', '$location', function ($scope
 			};
 			$http.post('/api/register', register).
 				success(function(data, status, headers, config) {
-					$location.url('/user');
+					var message = headers('Message');
+					if(message.toLowerCase().indexOf('username') != -1){
+						$scope.error.username = message;
+					} else {
+						$location.url('/user');
+					}
 				}).
 				error(function(data, status, headers, config) {
 					$scope.error.username = 'That\'s already taken.';

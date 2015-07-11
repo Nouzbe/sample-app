@@ -23,7 +23,7 @@ module.exports = function(passport) {
 				if(err)
 					return done(err);
 				if(user) {
-					return done(null, false, {message: 'Username already taken.'});
+					return done(null, false, req.flash('message', 'Username is already taken.'));
 				} else {
 					var newUser = new User();
 					newUser.local.username = req.body.username;
@@ -33,7 +33,7 @@ module.exports = function(passport) {
 					newUser.save(function(err) {
 						if(err)
 							throw err;
-						return done(null, newUser);
+						return done(null, newUser, req.flash('message', 'ok'));
 					});
 				}
 			});
@@ -50,10 +50,10 @@ module.exports = function(passport) {
 			if(err)
 				return done(err);
 			if(!user)
-				return done(null, false, {message: 'No user found'});
+				return done(null, false, req.flash('message', 'Username is unknown.'));
 			if(!user.validPassword(password))
-				return done(null, false, {message: 'Wrong password.'});
-			return done(null, user);
+				return done(null, false, req.flash('message', 'Wrong password.'));
+			return done(null, user, req.flash('message', 'ok'));
 		});
 	}));
 };
