@@ -26,4 +26,5 @@ app.controller('loginCtrl', ['$scope', '$http', '$location', function ($scope, $
 				// we'll see
 			});
 	}
+
 }]);

@@ -6,7 +6,8 @@ var express 			= require('express'),
 	passport 			= require('passport'),
 	flash 				= require('connect-flash'),
 	session 			= require('express-session'),
-	objectController 	= require('./server/controllers/object-controller');
+	objectController 	= require('./server/controllers/object-controller'),
+	userController 		= require('./server/controllers/user-controller');;
 
 // connect to the db
 mongoose.connect('mongodb://localhost:27017/mean-demo');
@@ -35,7 +36,7 @@ app.use(express.static(__dirname+'/client'));
 // user objects
 app.post('/api/object', objectController.create);
 app.get('/api/object/:user', objectController.list);
-app.put('/api/object/:id', objectController.publish)
+app.put('/api/object/:id', objectController.publish);
 app.delete('/api/object/:id', objectController.delete);
 // public objects
 app.get('/api/public/object', objectController.listPublic);
@@ -56,6 +57,7 @@ app.get('/api/logout', function (req, res){
     res.redirect('/');
   });
 });
+app.get('/api/forgotPassword/:user', userController.forgotPassword);
 
 // If the url is not part of the REST API, Express delivers index.html and from there on ngRoute is the boss
 app.get('*', function (req, res) {

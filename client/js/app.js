@@ -17,5 +17,9 @@ var app = angular.module('sample-app', ['ngResource', 'ngRoute']).
 					templateUrl: "/../views/user.html",
 					controller: "userCtrl"
 				}).
+				when("/forgotMyPassword", {
+					templateUrl: "/../views/forgotPassword.html",
+					controller: "forgotPasswordCtrl"
+				}).
 				otherwise({redirectTo: "/somethingthatdoesnotexist"});
 		}]);

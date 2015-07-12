@@ -5,7 +5,7 @@
 
             <form id="login_form" ng-submit="login()">
                 <div class="input-wrapper">
-                    <input class="login-input" required id="name" type="text" name="name" placeholder="User name"
+                    <input class="login-input" required id="name" type="text" name="name" placeholder="Username"
                            ng-model="username" ng-change="error.username=null">
                     <span class="alert alert-danger" ng-show="error.username">{{error.username}}</span>
                 </div>
@@ -16,7 +16,7 @@
                     <span class="alert alert-danger" ng-show="error.password">{{error.password}}</span>
                 </div>
                 <div class="col-md-6 login-statements">
-                    <a href='#'>Forgot your password ?</a><br/>
+                    <a href='/#forgotMyPassword'>Forgot your password ?</a><br/>
                     <span>Don't have an account yet ? <a href="/#register">Sign up</a></span>
                 </div>
                 <div class="pull-right">
@@ -24,5 +24,5 @@
                 </div>
             </form>
         </div>
-        </div>
+    </div>
 </div>
