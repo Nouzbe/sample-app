@@ -5,8 +5,8 @@ var nodemailer 	= require('nodemailer'),
 var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
-        user: 'sample.app.mailer@gmail.com',
-        pass: 'bamtechno'
+        user: '<yourMailerAdress>',
+        pass: '<yourMailerPassword>'
     }
 });
 
@@ -24,10 +24,10 @@ module.exports.forgotPassword = function(req, res) {
 				if(err)
 					res.send(err);
 				var mailOptions = {
-				    from: 'sample.app.mailer@gmail.com',
+				    from: '<yourMailerAdress>',
 				    to: results._doc.local.email,
 				    subject: 'Your new sample-app credentials',
-				    text: 'Hi ' + username + ',\n\nWe wanted to tell you that your password has been succesfully reset. You can now login with the following:\n' + newOne + '\n\nCheers !\n\nThe sample-app team.',
+				    text: 'Hi ' + username + ',\n\nWe wanted to tell you that your password has been succesfully reset. You can now login using the following:\n' + newOne + '\n\nCheers !\n\nThe sample-app team.',
 				};
 				transporter.sendMail(mailOptions, function(error, info){
 				    if(error){
@@ -44,4 +44,16 @@ module.exports.forgotPassword = function(req, res) {
 		}
 		
 	});
+}
+
+module.exports.getProfile = function(req, res) {
+	if(!req.isAuthenticated()) {
+		res.statusCode = 401;
+		res.json({message: 'ko'});
+	}
+	else {
+		User.findById(req._passport.session.user, function (err, doc){
+			res.json({username: doc._doc.local.username, email: doc._doc.local.email});
+		});
+	}
 }

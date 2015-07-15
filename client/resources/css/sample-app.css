@@ -49,6 +49,13 @@ h2 {
 	display: table;
 }
 
+.top-page-container {
+	width: 100%;
+	height:60%;
+	position:fixed;
+	display: table;
+}
+
 .centered-container {
 	display: table-cell;
     vertical-align: middle;
@@ -64,4 +71,24 @@ h2 {
 
 .dropdown-menu {
     min-width: 0px;
+}
+
+.profile-box {
+	margin-top: 30px;
+	border-radius: 15px;
+    padding: 20px;
+    background-color: #CCCCCC;
+    border: 2px solid #999;
+}
+
+.profile-methods {
+	margin-top: 30px;
+	border-radius: 15px;
+    padding: 20px;
+    background-color: #F5F5F5;
+    border: 2px solid #999;
+}
+
+.delete {
+	color: red;
 }

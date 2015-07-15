@@ -5,6 +5,12 @@ app.directive('header', function () {
         templateUrl: "/partials/header.html",
         controller: ['$scope', '$location', '$http','currentSession', function ($scope, $location, $http, currentSession) {
             $scope.session = currentSession;
+            $scope.dropdown = {
+                items: [{
+                    name: 'Profile',
+                    href: '/#profile'
+                }]
+            }
 	        $scope.register = function(){
                 $location.url('/register');
             }
