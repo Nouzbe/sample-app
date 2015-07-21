@@ -60,6 +60,9 @@ app.get('/api/logout', function (req, res){
 // profiles
 app.get('/api/forgotPassword/:user', userController.forgotPassword);
 app.get('/api/profile', userController.getProfile);
+app.put('/api/profile/changeemail/:user', userController.changeEmail);
+app.put('/api/profile/changepassword/:user', userController.changePassword);
+app.post('/api/profile/deleteAccount/:user', userController.deleteAccount);
 
 // If the url is not part of the REST API, Express delivers index.html and from there on ngRoute is the boss
 app.get('*', function (req, res) {

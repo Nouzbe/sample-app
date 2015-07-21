@@ -7,7 +7,7 @@
                 	<span>username : {{username}}</span>
                 </div>
                 <div>
-                	<span>email : <a href="#" ng-click="showEmailForm()" title="Click me to change me." tooltip>{{email}}</a></span>
+                	<span>email : <a href="#" ng-click="showEmailForm()" title="Click to change me." tooltip>{{email}}</a></span>
                 </div>
                 <div>
                 	<span>password : <a href="#" ng-click="showPasswordForm()">**********</a></span>
@@ -23,7 +23,7 @@
                 <h3>So you want to change your email ?</h3>
                 <form ng-submit="updateEmail()">
                     <div class="input-wrapper">
-                        <input class="login-input" required type="text" placeholder="New email"
+                        <input class="login-input" required type="email" placeholder="New email"
                                ng-model="newEmail" ng-change="error.newEmail=null">
                         <span class="alert alert-danger" ng-show="error.newEmail">{{error.newEmail}}</span>
                     </div>

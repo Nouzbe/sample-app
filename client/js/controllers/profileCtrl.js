@@ -2,6 +2,11 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($s
 
 	$scope.username = null;
 	$scope.email = null;
+	$scope.error = null;
+	$scope.password = null;
+	$scope.newEmail = null;
+	$scope.newPassword = null;
+	$scope.confirmNewPassword = null;
 	$scope.emailUpdate = false;
 	$scope.passwordUpdate = false;
 	$scope.accountDeletion = false;
@@ -10,23 +15,25 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($s
 		$scope.emailUpdate = false;
 		$scope.passwordUpdate = false;
 		$scope.accountDeletion = false;
+		$scope.error = null;
+		$scope.password = null;
+		$scope.newEmail = null;
+		$scope.newPassword = null;
+		$scope.confirmNewPassword = null;
 	}
 
 	$scope.showEmailForm = function() {
+		$scope.cleanScreen();
 		$scope.emailUpdate = true;
-		$scope.passwordUpdate = false;
-		$scope.accountDeletion = false;
 	}
 
 	$scope.showPasswordForm = function() {
-		$scope.emailUpdate = false;
+		$scope.cleanScreen();
 		$scope.passwordUpdate = true;
-		$scope.accountDeletion = false;
 	}
 
 	$scope.showAccountForm = function() {
-		$scope.emailUpdate = false;
-		$scope.passwordUpdate = false;
+		$scope.cleanScreen();
 		$scope.accountDeletion = true;
 	}
 
@@ -41,19 +48,64 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($s
 			});
 	}
 
-	$scope.changeUsername = function() {
+	$scope.updateEmail = function() {
+		if($scope.email == $scope.newEmail){
+			$scope.error.newEmail = 'The new email should be different from the old.';
+		}
+		else {
+			var emailUpdate = {
+				email: $scope.newEmail,
+				password: $scope.password
+			};
+			$http.put('/api/profile/changeemail/'.concat($scope.username), emailUpdate).
+			success(function(data, status, headers, config) {
+				if(data.message.toLowerCase().indexOf('password') != -1){
+					$scope.error.password = 'wrong password';
+				}
+				$scope.loadUserInfo();
+			}).
+			error(function(data, status, headers, config) {
+				// we'll see
+			})
+		}
+	}
 
-	};
+	$scope.updatePassword = function() {
+		if($scope.newPassword !== $scope.confirmNewPassword){
+			$scope.error.confirmNewPassword = 'Looks like a typo.';
+		}
+		else if($scope.newPassword == $scope.password){
+			$scope.error.newPassword = 'The new password should be different from the old.';
+		}
+		else {
+			var passwordUpdate = {
+				newPassword: $scope.newPassword,
+				password: $scope.password
+			};
+			$http.put('/api/profile/changepassword/'.concat($scope.username), passwordUpdate).
+			success(function(data, status, headers, config) {
+				if(data.message.toLowerCase().indexOf('password') != -1){
+					$scope.error.password = 'wrong password';
+				}
+			}).
+			error(function(data, status, headers, config) {
+				// we'll see
+			})
+		}
+	}
 
-	$scope.changeEmail = function() {
-
-	};
-
-	$scope.changePassword = function() {
-
-	};
+	$scope.deleteAccount = function() {
+		$http.post('/api/profile/deleteAccount/'.concat($scope.username), {password: $scope.password}).
+			success(function(data, status, headers, config) {
+				$scope.madeIt = true;
+			}).
+			error(function(data, status, headers, config) {
+				// we'll see
+			})
+	}
 
 	currentSession.checkLoggedIn().then(function(){
 		$scope.loadUserInfo();
 	});
 }]);
+
