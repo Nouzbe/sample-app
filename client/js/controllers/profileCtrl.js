@@ -1,4 +1,4 @@
-app.controller('profileCtrl', ['$scope', '$http', function ($scope, $http){
+app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($scope, $http, currentSession){
 
 	$scope.username = null;
 	$scope.email = null;
@@ -53,6 +53,7 @@ app.controller('profileCtrl', ['$scope', '$http', function ($scope, $http){
 
 	};
 
-	$scope.loadUserInfo();
-
+	currentSession.checkLoggedIn().then(function(){
+		$scope.loadUserInfo();
+	});
 }]);
