@@ -1,5 +1,6 @@
 var nodemailer 	= require('nodemailer'),
-	User 		= require('../models/user.js');
+	User 		= require('../models/user.js'),
+	UserObject  = require('../models/object.js');
 
 // mailer setup
 var transporter = nodemailer.createTransport({
@@ -64,19 +65,18 @@ module.exports.changeEmail = function(req, res) {
 		res.json({message: 'ko'});
 	}
 	else {
-		var username = req.params.user;
-		var password = req.body.password;
-		var email = req.body.email;
-		User.findOne({'local.username': username}, function (err, results){
+		var userId = req.params.userId;
+		var givenPassword = req.body.password;
+		var newEmail = req.body.email;
+		User.findById( userId, function(err, results) {
 				if(err)
 					res.send(err);
 				else {
+					var username = results._doc.local.username;
 					var user = new User();
-					user.local.username = results._doc.local.username;
-					user.local.email =  results._doc.local.email;
 					user.local.password =  results._doc.local.password;
-					if(user.validPassword(password)) {
-						User.update({'local.username': username},{'local.email': email}, function(err, numAffected) {
+					if(user.validPassword(givenPassword)) {
+						User.update({'local.username': username},{'local.email': newEmail}, function(err, numAffected) {
 							if(err)
 								res.send(err);
 							if(numAffected.n == 1) {
@@ -97,21 +97,20 @@ module.exports.changeEmail = function(req, res) {
 module.exports.changePassword = function(req, res) {
 	if(!req.isAuthenticated()) {
 		res.statusCode = 401;
-		res.json({message: 'ko: this action requires a session.'});
+		res.json({message: 'ko: you are not authenticated.'});
 	}
 	else {
-		var username = req.params.user;
-		var password = req.body.password;
+		var userId = req.params.userId;
+		var givenPassword = req.body.password;
 	 	var newHash = new User().generateHash(req.body.newPassword); 
-		User.findOne({'local.username': username}, function (err, results){
+		User.findById( userId, function(err, results) {
 				if(err)
 					res.send(err);
 				else {
+					var username = results._doc.local.username;
 					var user = new User();
-					user.local.username = results._doc.local.username;
-					user.local.email =  results._doc.local.email;
 					user.local.password =  results._doc.local.password;
-					if(user.validPassword(password)) {
+					if(user.validPassword(givenPassword)) {
 						User.update({'local.username': username},{'local.password': newHash}, function(err, numAffected) {
 							if(err)
 								res.send(err);
@@ -133,8 +132,32 @@ module.exports.changePassword = function(req, res) {
 module.exports.deleteAccount = function(req, res) {
 	if(!req.isAuthenticated()) {
 		res.statusCode = 401;
-		res.json({message: 'ko'});
+		res.json({message: 'ko: you are not authenticated.'});
 	}
 	else {
+		var userId = req.params.userId;
+		var givenPassword = req.body.password;
+		User.findById( userId, function(err, results) {
+			if(err)
+				res.send(err)
+			var username = results._doc.local.username;
+			var user = new User();
+			user.local.password =  results._doc.local.password;
+			if(user.validPassword(givenPassword)) {
+				UserObject.remove({user_name: username}, function(err, product) {
+					if(err) 
+						res.send(err);
+					console.log('Just deleted ' + username + '\'s ' + product.result.n + ' objects.');
+					User.remove({_id: userId}, function(err, product) {
+						if(err) 
+							res.send(err);
+							console.log('Just deleted ' + username + '\'s account.');
+					})
+				})
+				res.json({message: 'ok'});
+			} else {
+				res.json({message: 'ko: wrong password.'});
+			}
+		});
 	}
 }

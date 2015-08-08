@@ -1,4 +1,4 @@
-app.controller('profileCtrl', ['$scope', '$http', 'currentSession', 'growl', function ($scope, $http, currentSession, growl){
+app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession', 'growl', function ($scope, $http, $location, currentSession, growl){
 
 	$scope.username = null;
 	$scope.email = null;
@@ -57,7 +57,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', 'growl', fun
 				email: $scope.newEmail,
 				password: $scope.password
 			};
-			$http.put('/api/profile/changeemail/'.concat($scope.username), emailUpdate).
+			$http.put('/api/profile/changeemail/'.concat(currentSession.getUserId()), emailUpdate).
 			success(function(data, status, headers, config) {
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
@@ -79,14 +79,14 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', 'growl', fun
 			$scope.error.confirmNewPassword = 'Looks like a typo.';
 		}
 		else if($scope.newPassword == $scope.password){
-			$scope.error.newPassword = 'The new password should be different from the old one.';
+			$scope.error.newPassword = 'The new password should be different.';
 		}
 		else {
 			var passwordUpdate = {
 				newPassword: $scope.newPassword,
 				password: $scope.password
 			};
-			$http.put('/api/profile/changepassword/'.concat($scope.username), passwordUpdate).
+			$http.put('/api/profile/changepassword/'.concat(currentSession.getUserId()), passwordUpdate).
 			success(function(data, status, headers, config) {
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
@@ -103,9 +103,22 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', 'growl', fun
 	}
 
 	$scope.deleteAccount = function() {
-		$http.post('/api/profile/deleteAccount/'.concat($scope.username), {password: $scope.password}).
+		$http.post('/api/profile/deleteAccount/'.concat(currentSession.getUserId()), {password: $scope.password}).
 			success(function(data, status, headers, config) {
-				$scope.madeIt = true;
+				if(data.message.toLowerCase().indexOf('password') != -1){
+					$scope.error.password = 'wrong password';
+				}
+				else if(data.message === 'ok') {
+					$http.get('/api/logout').
+	                    success(function(data, status, headers, config) {
+	                        growl.addSuccessMessage('You account was just deleted.');
+	                        currentSession.setAuthenticated(false);
+	                        $location.url('/');
+	                    }).
+	                    error(function(data, status, headers, config) {
+	                        // we'll see
+	                    });
+				}
 			}).
 			error(function(data, status, headers, config) {
 				// we'll see
