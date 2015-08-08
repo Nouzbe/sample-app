@@ -1,4 +1,4 @@
-app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($scope, $http, currentSession){
+app.controller('profileCtrl', ['$scope', '$http', 'currentSession', 'growl', function ($scope, $http, currentSession, growl){
 
 	$scope.username = null;
 	$scope.email = null;
@@ -62,6 +62,10 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($s
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
 				}
+				else if(data.message === 'ok') {
+					growl.addSuccessMessage('<b>Yay !</b> Email changed.');
+					$scope.cleanScreen();
+				}
 				$scope.loadUserInfo();
 			}).
 			error(function(data, status, headers, config) {
@@ -75,7 +79,7 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($s
 			$scope.error.confirmNewPassword = 'Looks like a typo.';
 		}
 		else if($scope.newPassword == $scope.password){
-			$scope.error.newPassword = 'The new password should be different from the old.';
+			$scope.error.newPassword = 'The new password should be different from the old one.';
 		}
 		else {
 			var passwordUpdate = {
@@ -86,6 +90,10 @@ app.controller('profileCtrl', ['$scope', '$http', 'currentSession', function ($s
 			success(function(data, status, headers, config) {
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
+				}
+				else if(data.message === 'ok') {
+					growl.addSuccessMessage('<b>Yay !</b> Password changed.');
+					$scope.cleanScreen();
 				}
 			}).
 			error(function(data, status, headers, config) {

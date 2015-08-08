@@ -20,7 +20,6 @@
         </div>
         <div class="col-md-5 col-md-offset-1 profile-methods" ng-show="emailUpdate || passwordUpdate || accountDeletion">
             <div ng-show="emailUpdate">
-                <h3>So you want to change your email ?</h3>
                 <form ng-submit="updateEmail()">
                     <div class="input-wrapper">
                         <input class="login-input" required type="email" placeholder="New email"
@@ -39,7 +38,6 @@
                 </form>
             </div>
             <div ng-show="passwordUpdate">
-                <h3>So you want to change your password ?</h3>
                 <form ng-submit="updatePassword()">
                     <div class="input-wrapper">
                         <input class="login-input" required type="Password"
@@ -65,11 +63,8 @@
                 </form>
             </div>
             <div ng-show="accountDeletion">
-                <h3>So you want to delete your account ?</h3>
+                <h3>You sure ?</h3>
                 <form ng-submit="deleteAccount()">
-                    <div>
-                        <span>You sure ?</span>
-                    </div>
                     <div class="input-wrapper">
                         <input class="login-input" required type="Password"
                                placeholder="Password" ng-model="password" ng-change="error.password=null">

@@ -1,5 +1,5 @@
-var app = angular.module('sample-app', ['ngResource', 'ngRoute']).
-		config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
+var app = angular.module('sample-app', ['ngResource', 'ngRoute', 'ngSanitize', 'ngAnimate', 'angular-growl']).
+		config(['$routeProvider','$locationProvider', 'growlProvider' , function($routeProvider, $locationProvider, growlProvider) {
 			$locationProvider.html5Mode(true);
 			$routeProvider.
 				when("/", {
@@ -26,4 +26,7 @@ var app = angular.module('sample-app', ['ngResource', 'ngRoute']).
 					controller: "profileCtrl"
 				}).
 				otherwise({redirectTo: "/somethingthatdoesnotexist"});
+
+			growlProvider.globalTimeToLive(3000);
+    		growlProvider.globalEnableHtml(true);
 		}]);

@@ -8,16 +8,21 @@
 		<meta name="viewport" content="width=device-width">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="resources/css/sample-app.css">
+		<link rel="stylesheet" type="text/css" href="resources/css/animate.css">
 		<link rel="icon" type="image/png" href="resources/icons/favicon.png">
 	</head>
 	<body>
 		<header></header>
-		<div class="container-fluid" ng-view> 
+		<div growl></div>
+		<div class="container-fluid" ng-view>
 		</div>
 	</body>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-resource.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular-route.js"></script>
+	<script type="text/javascript" src="resources/js/angular-animate.js"></script>
+	<script type="text/javascript" src="resources/js/angular-sanitize.js"></script>
+	<script type="text/javascript" src="resources/js/angular-growl.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/services/currentSession.js"></script>
 	<script type="text/javascript" src="js/services/interceptors.js"></script>
