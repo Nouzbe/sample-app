@@ -19,7 +19,7 @@ app.controller('loginCtrl', ['$scope', '$http', '$location', function ($scope, $
 				else if(message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = message;
 				} else {
-					$location.url('/user');
+					$location.url('/objects');
 				}
 			}).
 			error(function(data, status, headers, config) {

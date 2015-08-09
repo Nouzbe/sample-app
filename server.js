@@ -7,7 +7,7 @@ var express 			= require('express'),
 	flash 				= require('connect-flash'),
 	session 			= require('express-session'),
 	objectController 	= require('./server/controllers/object-controller'),
-	userController 		= require('./server/controllers/user-controller');;
+	userController 		= require('./server/controllers/user-controller');
 
 // connect to the db
 mongoose.connect('mongodb://localhost:27017/mean-demo');

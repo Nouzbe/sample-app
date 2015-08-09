@@ -10,6 +10,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 	$scope.emailUpdate = false;
 	$scope.passwordUpdate = false;
 	$scope.accountDeletion = false;
+	$scope.gravatarUrl = null;
 
 	$scope.cleanScreen = function() {
 		$scope.emailUpdate = false;
@@ -42,6 +43,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 			success(function(data, status, headers, config) {
 				$scope.username = data.username;
 				$scope.email = data.email;
+				$scope.gravatarUrl = currentSession.getGravatarUrl();
 			}).
 			error(function(data, status, headers, config) {
 				// we'll see
@@ -63,6 +65,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 					$scope.error.password = 'wrong password';
 				}
 				else if(data.message === 'ok') {
+					currentSession.setGravatarUrl($scope.newEmail);
 					growl.addSuccessMessage('<b>Yay !</b> Email changed.');
 					$scope.cleanScreen();
 				}

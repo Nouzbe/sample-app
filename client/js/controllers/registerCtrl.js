@@ -23,7 +23,7 @@ app.controller('registerCtrl', ['$scope', '$http', '$location', function ($scope
 					if(message.toLowerCase().indexOf('username') != -1){
 						$scope.error.username = message;
 					} else {
-						$location.url('/user');
+						$location.url('/objects');
 					}
 				}).
 				error(function(data, status, headers, config) {

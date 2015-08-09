@@ -1,4 +1,4 @@
-var app = angular.module('sample-app', ['ngResource', 'ngRoute', 'ngSanitize', 'ngAnimate', 'angular-growl']).
+var app = angular.module('sample-app', ['ngResource', 'ngRoute', 'ngSanitize', 'ngAnimate', 'angular-growl', '720kb.tooltips']).
 		config(['$routeProvider','$locationProvider', 'growlProvider' , function($routeProvider, $locationProvider, growlProvider) {
 			$locationProvider.html5Mode(true);
 			$routeProvider.
@@ -13,9 +13,9 @@ var app = angular.module('sample-app', ['ngResource', 'ngRoute', 'ngSanitize', '
 					templateUrl: "/../views/login.html",
 					controller: "loginCtrl"
 				}).
-				when("/user", {
-					templateUrl: "/../views/user.html",
-					controller: "userCtrl"
+				when("/objects", {
+					templateUrl: "/../views/objects.html",
+					controller: "objectsCtrl"
 				}).
 				when("/forgotMyPassword", {
 					templateUrl: "/../views/forgotPassword.html",

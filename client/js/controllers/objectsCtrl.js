@@ -1,4 +1,4 @@
-app.controller('userCtrl', ['$scope', '$http', 'currentSession', function ($scope, $http, currentSession){
+app.controller('objectsCtrl', ['$scope', '$http', 'currentSession', function ($scope, $http, currentSession){
 
 	$scope.getList = function() {
         $http.get('/api/object/'.concat($scope.username)).

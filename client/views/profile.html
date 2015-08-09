@@ -4,10 +4,13 @@
             <h2>Your profile</h2>
             <div>
                 <div>
+                    <a target="_blank" href="https://www.gravatar.com"><img class="bigProfilePic" src="{{gravatarUrl}}" tooltips tooltip-title="Visit gravatar.com to change me." tooltip-side="right" tooltip-size="small"/></a>
+                </div>
+                <div>
                 	<span>username : {{username}}</span>
                 </div>
                 <div>
-                	<span>email : <a href="#" ng-click="showEmailForm()" title="Click to change me." tooltip>{{email}}</a></span>
+                	<span>email : <a href="#" ng-click="showEmailForm()" tooltips tooltip-title="Click to change me." tooltip-side="right" tooltip-size="small">{{email}}</a></span>
                 </div>
                 <div>
                 	<span>password : <a href="#" ng-click="showPasswordForm()">**********</a></span>

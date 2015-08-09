@@ -1,8 +1,10 @@
 app.provider('currentSession', function () {
-    this.$get = ['$http', '$location', '$q', function ($http, $location, $q) {
+    this.$get = ['$http', '$location', '$q', 'messageDigestor', function ($http, $location, $q, messageDigestor) {
         var currentSessionProvider = {
             userId: null,
             username: null,
+            gravatarRootUrl: 'http://www.gravatar.com/avatar/',
+            gravatarUrl: null,
             authenticated: null,
             isAuthenticated: function() {
                 return this.authenticated;
@@ -22,6 +24,15 @@ app.provider('currentSession', function () {
             setUserId: function(userId) {
                 this.userId = userId;
             },
+            getGravatarUrl: function() {
+                return this.gravatarUrl;
+            },
+            setGravatarUrl: function(email) {
+                this.gravatarUrl = this.gravatarRootUrl + messageDigestor.MD5(email);
+            },
+            getGravatarRootUrl: function() {
+                return this.gravatarRootUrl;
+            },
             checkLoggedIn: function() {
                 var d = $q.defer();
                 $http.get('/api/isloggedin').
@@ -30,6 +41,7 @@ app.provider('currentSession', function () {
                         if(result !== '0'){
                             currentSessionProvider.setUsername(result.local.username);
                             currentSessionProvider.setUserId(result._id);
+                            currentSessionProvider.setGravatarUrl(result.local.email);
                             currentSessionProvider.setAuthenticated(true);
                             d.resolve();
                         }

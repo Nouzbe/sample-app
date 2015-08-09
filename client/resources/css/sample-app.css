@@ -93,6 +93,31 @@ h2 {
 	color: red;
 }
 
+.smallProfilePic {
+	height: 40px;
+	padding-right: 15px;
+}
+
+.bigProfilePic {
+	height: 120px;
+	margin: 20px;
+	border: 2px solid #999;
+}
+
+.bigProfilePic:hover {
+	outline: 0;
+    box-shadow: 0 0 5px blue;
+}
+
+.navbar-nav .dropdown-trigger {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.navbar-nav:hover .dropdown-trigger:hover {
+	background-color: #333333;
+}
+
 /* Growl stuff */
 
 .growl {

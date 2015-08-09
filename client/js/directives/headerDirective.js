@@ -7,9 +7,13 @@ app.directive('header', function () {
             $scope.session = currentSession;
             $scope.dropdown = {
                 items: [{
-                    name: 'Profile',
-                    href: '/#profile'
-                }]
+                            name: 'Profile',
+                            href: '/#profile'
+                        }, 
+                        {
+                            name: 'Objects',
+                            href: '/#objects'
+                        }]
             }
 	        $scope.register = function(){
                 $location.url('/register');
