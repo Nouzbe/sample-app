@@ -27,6 +27,6 @@ var app = angular.module('sample-app', ['ngResource', 'ngRoute', 'ngSanitize', '
 				}).
 				otherwise({redirectTo: "/somethingthatdoesnotexist"});
 
-			growlProvider.globalTimeToLive(3000);
+			growlProvider.globalTimeToLive(10000);
     		growlProvider.globalEnableHtml(true);
 		}]);

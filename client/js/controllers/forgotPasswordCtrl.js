@@ -1,4 +1,4 @@
-app.controller('forgotPasswordCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location){
+app.controller('forgotPasswordCtrl', ['$scope', '$http', '$location', 'growl', function ($scope, $http, $location, growl){
     
     $scope.done = false;
     $scope.error = {
@@ -13,6 +13,9 @@ app.controller('forgotPasswordCtrl', ['$scope', '$http', '$location', function (
                 }
                 else if ( data.message == 'ko'){
                     $scope.error.username = 'Huh, do I know you ?';
+                }
+                else if(data.message.toLowerCase().indexOf('mailer') != -1){
+                    growl.addErrorMessage('<b>Oops !</b> We currently have an issue with our mails. Please sit back and relax while we fix it and try again in a couple of minutes.');
                 }
             }).
             error(function(data, status, headers, config) {

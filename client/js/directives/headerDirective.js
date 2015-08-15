@@ -22,7 +22,7 @@ app.directive('header', function () {
 				$location.url('/login');
 			}
             $scope.logout = function(){
-                $http.get('/api/logout').
+                $http.get('/api/logout/'.concat($scope.session.username)).
                     success(function(data, status, headers, config) {
                         $location.url('/');
                         currentSession.setAuthenticated(false);

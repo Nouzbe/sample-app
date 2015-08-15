@@ -34,12 +34,12 @@ app.use(express.static(__dirname+'/client'));
 
 // REST interface
 // user objects
-app.post('/api/object', objectController.create);
+app.post('/api/object/:user', objectController.create);
 app.get('/api/object/:user', objectController.list);
-app.put('/api/object/:id', objectController.publish);
-app.delete('/api/object/:id', objectController.delete);
+app.get('/api/object/publish/:user/:objectId', objectController.publish);
+app.delete('/api/object/:user/:objectId', objectController.delete);
 // public objects
-app.get('/api/public/object', objectController.listPublic);
+app.get('/api/public/object/:user', objectController.listPublic);
 // users
 app.post('/api/register', passport.authenticate('local-signup', {
 	successRedirect : '/client/views/index.html',
@@ -50,19 +50,26 @@ app.post('/api/login', passport.authenticate('local-login', {
 	failureRedirect : '/client/views/index.html'
 }));
 app.get('/api/isloggedin', function(req, res) {
-	res.send(req.isAuthenticated() ? req.user : '0');
+	if(req.isAuthenticated()) {
+		res.send(req.user);
+	}
+	else {
+		console.log(new Date + ' | WARNING | ' + req.user + ' | is not authenticated. Redirecting.');
+		res.send('0');
+	}
 });
-app.get('/api/logout', function (req, res){
-  req.session.destroy(function (err) {
+app.get('/api/logout/:user', function (req, res){
+	console.log(new Date + ' | SUCCESS | ' + req.params.user + ' | just logged out.');
+  	req.session.destroy(function (err) {
     res.redirect('/');
   });
 });
 // profiles
 app.get('/api/forgotPassword/:user', userController.forgotPassword);
-app.get('/api/profile', userController.getProfile);
-app.put('/api/profile/changeemail/:userId', userController.changeEmail);
-app.put('/api/profile/changepassword/:userId', userController.changePassword);
-app.post('/api/profile/deleteAccount/:userId', userController.deleteAccount);
+app.get('/api/profile/:user', userController.getProfile);
+app.put('/api/profile/changeemail/:user', userController.changeEmail);
+app.put('/api/profile/changepassword/:user', userController.changePassword);
+app.post('/api/profile/deleteAccount/:user', userController.deleteAccount);
 
 // If the url is not part of the REST API, Express delivers index.html and from there on ngRoute is the boss
 app.get('*', function (req, res) {

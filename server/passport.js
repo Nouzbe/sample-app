@@ -20,8 +20,9 @@ module.exports = function(passport) {
 	function(req, username, password, done) {
 		process.nextTick(function() {
 			User.findOne({'local.username' : username}, function(err, user) {
-				if(err)
+				if(err) {
 					return done(err);
+				}
 				if(user) {
 					return done(null, false, req.flash('message', 'Username is already taken.'));
 				} else {
@@ -31,8 +32,10 @@ module.exports = function(passport) {
 					newUser.local.password = newUser.generateHash(req.body.password);
 
 					newUser.save(function(err) {
-						if(err)
-							throw err;
+						if(err) {
+							return done(err);
+						}
+						console.log(new Date + ' | SUCCESS | ' + username + ' | just signed up.');
 						return done(null, newUser, req.flash('message', 'ok'));
 					});
 				}
@@ -47,12 +50,16 @@ module.exports = function(passport) {
 	},
 	function(req, username, password, done) {
 		User.findOne({'local.username': username}, function(err, user) {
-			if(err)
+			if(err) {
 				return done(err);
-			if(!user)
+			}
+			if(!user) {
 				return done(null, false, req.flash('message', 'Username is unknown.'));
-			if(!user.validPassword(password))
+			}
+			if(!user.validPassword(password)) {
 				return done(null, false, req.flash('message', 'Wrong password.'));
+			}
+			console.log(new Date + ' | SUCCESS | ' + username + ' | just logged in.');
 			return done(null, user, req.flash('message', 'ok'));
 		});
 	}));

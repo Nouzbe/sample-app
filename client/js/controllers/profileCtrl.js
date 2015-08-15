@@ -39,7 +39,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 	}
 
 	$scope.loadUserInfo = function() {
-        $http.get('/api/profile').
+        $http.get('/api/profile/'.concat($scope.username)).
 			success(function(data, status, headers, config) {
 				$scope.username = data.username;
 				$scope.email = data.email;
@@ -59,7 +59,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 				email: $scope.newEmail,
 				password: $scope.password
 			};
-			$http.put('/api/profile/changeemail/'.concat(currentSession.getUserId()), emailUpdate).
+			$http.put('/api/profile/changeemail/'.concat($scope.username), emailUpdate).
 			success(function(data, status, headers, config) {
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
@@ -89,7 +89,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 				newPassword: $scope.newPassword,
 				password: $scope.password
 			};
-			$http.put('/api/profile/changepassword/'.concat(currentSession.getUserId()), passwordUpdate).
+			$http.put('/api/profile/changepassword/'.concat($scope.username), passwordUpdate).
 			success(function(data, status, headers, config) {
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
@@ -106,7 +106,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 	}
 
 	$scope.deleteAccount = function() {
-		$http.post('/api/profile/deleteAccount/'.concat(currentSession.getUserId()), {password: $scope.password}).
+		$http.post('/api/profile/deleteAccount/'.concat($scope.username), {password: $scope.password}).
 			success(function(data, status, headers, config) {
 				if(data.message.toLowerCase().indexOf('password') != -1){
 					$scope.error.password = 'wrong password';
@@ -129,6 +129,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 	}
 
 	currentSession.checkLoggedIn().then(function(){
+		$scope.username = currentSession.username;
 		$scope.loadUserInfo();
 	});
 }]);

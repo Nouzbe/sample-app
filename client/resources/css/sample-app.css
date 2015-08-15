@@ -94,7 +94,7 @@ h2 {
 }
 
 .smallProfilePic {
-	height: 40px;
+	height: 30px;
 	padding-right: 15px;
 }
 
@@ -110,8 +110,8 @@ h2 {
 }
 
 .navbar-nav .dropdown-trigger {
-	padding-top: 5px;
-	padding-bottom: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .navbar-nav:hover .dropdown-trigger:hover {

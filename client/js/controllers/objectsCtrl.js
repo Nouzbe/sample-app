@@ -11,7 +11,7 @@ app.controller('objectsCtrl', ['$scope', '$http', 'currentSession', function ($s
 	}
 
 	$scope.getPublicList = function() {
-		$http.get('/api/public/object').
+		$http.get('/api/public/object/'.concat($scope.username)).
 		success(function(data, status, headers, config) {
 			$scope.publicObjects = data;
 		}).
@@ -21,9 +21,10 @@ app.controller('objectsCtrl', ['$scope', '$http', 'currentSession', function ($s
 	}
 
 	$scope.deleteObject = function(id) {
-		$http.delete('/api/object/'.concat(id)).
+		$http.delete('/api/object/'.concat($scope.username).concat('/').concat(id)).
 		success(function(data, status, headers, config) {
 			$scope.getList();
+			$scope.getPublicList();
 		}).
 		error(function(data, status, headers, config) {
 			// we'll see
@@ -36,7 +37,7 @@ app.controller('objectsCtrl', ['$scope', '$http', 'currentSession', function ($s
 			user_name: $scope.username,
 			pub: false
 		}
-		$http.post('/api/object', object).
+		$http.post('/api/object/'.concat($scope.username), object).
 		success(function(data, status, headers, config) {
 			$scope.objectName = '';
 			$scope.getList();
@@ -48,7 +49,7 @@ app.controller('objectsCtrl', ['$scope', '$http', 'currentSession', function ($s
 
 	$scope.publishObject = function(object) {
 		object.pub = true;
-		$http.put('/api/object/'.concat(object._id), object).
+		$http.get('/api/object/publish/'.concat($scope.username).concat('/').concat(object._id)).
 		success(function(data, status, headers, config) {
 			$scope.getPublicList();
 		}).
