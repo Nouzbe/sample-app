@@ -9,7 +9,8 @@ var express 			= require('express'),
 	nodemailer 			= require('nodemailer'),
 	objectService	 	= require('./server/services/objectService'),
 	profileService 		= require('./server/services/profileService'),
-	configUtil    		= require('./server/utils/configUtil');
+	configUtil    		= require('./server/utils/configUtil'),
+	logger				= require('./server/utils/logUtil');
 
 // load the configuration
 configUtil.loadConfig();
@@ -51,12 +52,12 @@ app.get('/api/isloggedin', function(req, res) {
 		res.send(req.user);
 	}
 	else {
-		console.log(new Date + ' | WARNING | ' + req.user + ' | is not authenticated. Redirecting.');
+		logger.internalWarning('Just received an unauthenticated request. Redirecting.');
 		res.send('0');
 	}
 });
 app.get('/api/logout/:user', function (req, res){
-	console.log(new Date + ' | SUCCESS | ' + req.params.user + ' | just logged out.');
+	logger.info(req.params.user, 'just logged out.');
   	req.session.destroy(function (err) {
     res.redirect('/');
   });
@@ -85,7 +86,7 @@ app.get('*', function (req, res) {
 
 // Once set up, the server should listen to the given port.
 app.listen(configUtil.get('port'), function() {
-	console.log('I\'m listening.');
+	logger.internalInfo('Your node server just started up. It is currently listening on port ' + configUtil.get('port') + '.');
 	// reloading the configuration every minute
 	setInterval(function() {
 		configUtil.loadConfig();

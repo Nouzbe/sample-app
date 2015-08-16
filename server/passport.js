@@ -1,5 +1,6 @@
-var LocalStrategy = require('passport-local').Strategy,
-	User = require('../server/models/user.js');
+var LocalStrategy 	= require('passport-local').Strategy,
+	logger 			= require('../server/utils/logUtil.js'),
+	User 			= require('../server/models/user.js');
 
 module.exports = function(passport) {
 	passport.serializeUser(function(user, done) {
@@ -21,6 +22,7 @@ module.exports = function(passport) {
 		process.nextTick(function() {
 			User.findOne({'local.username' : username}, function(err, user) {
 				if(err) {
+					logger.error(username, 'tried to sign up: \n' + err);
 					return done(err);
 				}
 				if(user) {
@@ -33,9 +35,10 @@ module.exports = function(passport) {
 
 					newUser.save(function(err) {
 						if(err) {
+							logger.error(username, 'tried to sign up: \n' + err);
 							return done(err);
 						}
-						console.log(new Date + ' | SUCCESS | ' + username + ' | just signed up.');
+						logger.info(username, 'just signed up.');
 						return done(null, newUser, req.flash('message', 'ok'));
 					});
 				}
@@ -51,6 +54,7 @@ module.exports = function(passport) {
 	function(req, username, password, done) {
 		User.findOne({'local.username': username}, function(err, user) {
 			if(err) {
+				logger.error(username, 'tried to log in: \n' + err);
 				return done(err);
 			}
 			if(!user) {
@@ -59,7 +63,7 @@ module.exports = function(passport) {
 			if(!user.validPassword(password)) {
 				return done(null, false, req.flash('message', 'Wrong password.'));
 			}
-			console.log(new Date + ' | SUCCESS | ' + username + ' | just logged in.');
+			logger.info(username, 'just logged in.');
 			return done(null, user, req.flash('message', 'ok'));
 		});
 	}));
