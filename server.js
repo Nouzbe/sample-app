@@ -87,7 +87,7 @@ app.get('*', function (req, res) {
 // Once set up, the server should listen to the given port.
 app.listen(configUtil.get('port'), function() {
 	logger.internalInfo('Your node server just started up. It is currently listening on port ' + configUtil.get('port') + '.');
-	// reloading the configuration every minute
+	// reloading the configuration frequently
 	setInterval(function() {
 		configUtil.loadConfig();
 	}, 5*60*1000);
