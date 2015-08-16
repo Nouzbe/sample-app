@@ -1,17 +1,9 @@
-var nodemailer 	= require('nodemailer'),
-	User 		= require('../models/user.js'),
-	UserObject  = require('../models/object.js');
+var User 		= require('../models/user.js'),
+	UserObject  = require('../models/object.js'),
+	configUtil 	= require('../utils/configUtil.js'),
+	util 		= require('../utils/util.js');
 
-// mailer setup
-var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: '<yourMailerAdress>',
-        pass: '<yourMailerPassword>'
-    }
-});
-
-module.exports.forgotPassword = function(req, res) {
+module.exports.forgotPassword = function(req, res, transporter) {
 	var username = req.params.user;
 	var user = new User();
 	newOne = Math.random().toString(36).substring(6);
@@ -27,25 +19,24 @@ module.exports.forgotPassword = function(req, res) {
 					console.log(new Date + ' | ERROR | ' + username + ' | was trying to reset his / her password:\n' + err);
 					res.send(err);
 				}
-				var mailOptions = {
-				    from: '<yourMailerAdress>',
-				    to: results._doc.local.email,
-				    subject: 'Your new sample-app credentials',
-				    text: 'Hi ' + username + ',\n\nWe wanted to tell you that your password has been succesfully reset. You can now login using the following:\n' + newOne + '\n\nCheers !\n\nThe sample-app team.',
-				};
-				transporter.sendMail(mailOptions, function(err, info){
-				    if(err){
-				        console.log(new Date + ' | ERROR | ' + username + ' | was trying to reset his / her password:\n' + err);
-				        res.json({message: 'ko: mailer issue'});
-				    }
-				    else{
-				    	res.json({ message: 'ok' });
-				        console.log(new Date + ' | SUCCESS | ' + username + ' | just reset his / her password. An email was just sent to him / her.');
-				    }
-				});
+				else {
+					var mailOptions = configUtil.get('forgottenPasswordEmail');
+					mailOptions.to = results._doc.local.email;
+					mailOptions.text = util.fillUp(mailOptions.text, {'username': username, 'newPassword': newOne});
+					transporter.sendMail(mailOptions, function(err, info){
+					    if(err){
+					        console.log(new Date + ' | ERROR | ' + username + ' | was trying to reset his / her password:\n' + err);
+					        res.json({message: 'ko: mailer issue'});
+					    }
+					    else{
+					    	res.json({ message: 'ok' });
+					        console.log(new Date + ' | SUCCESS | ' + username + ' | just reset his / her password. An email was sent to him / her.');
+					    }
+					});
+				}
 			});
 		} else {
-			console.log(new Date + ' | ERROR | ' + username + ' | was trying to reset his / her password:\n' + err);
+			console.log(new Date + ' | ERROR | ' + username + ' | was trying to reset his / her password but several accounts had this username. This is abnormal.');
 			res.json({message: 'ko'});
 		}
 		

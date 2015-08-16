@@ -1,0 +1,19 @@
+{
+    "db": "mongodb://localhost:27017/mean-demo",
+    "forgottenPasswordEmail": {
+        "subject": "Your new credentials",
+        "text": "Hi {username},\n\nWe wanted to tell you that your password has been succesfully reset. You can now login using the following:\n{newPassword}\n\nCheers !\n\nThe sample-app team."
+    },
+    "mailer": {
+        "auth": {
+            "pass": "bamtechno",
+            "user": "sample.app.mailer@gmail.com"
+        },
+        "service": "Gmail"
+    },
+    "passport": {
+        "resave": true,
+        "saveUninitialized": true,
+        "secret": "bamtechnologies"
+    }
+}
