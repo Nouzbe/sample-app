@@ -15,5 +15,6 @@
         "resave": true,
         "saveUninitialized": true,
         "secret": "bamtechnologies"
-    }
+    },
+    "port": 3000
 }

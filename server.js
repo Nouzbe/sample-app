@@ -84,11 +84,11 @@ app.get('*', function (req, res) {
 });
 
 // Once set up, the server should listen to the given port.
-app.listen(3000, function() {
+app.listen(configUtil.get('port'), function() {
 	console.log('I\'m listening.');
 	// reloading the configuration every minute
 	setInterval(function() {
 		configUtil.loadConfig();
-	}, 60*1000);
+	}, 5*60*1000);
 })
 
