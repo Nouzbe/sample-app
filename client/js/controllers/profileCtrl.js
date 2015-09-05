@@ -66,7 +66,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 				}
 				else if(data.message === 'ok') {
 					currentSession.setGravatarUrl($scope.newEmail);
-					growl.addSuccessMessage('<b>Yay !</b> Email changed.');
+					growl.success('<b>Yay !</b> Email changed.');
 					$scope.cleanScreen();
 				}
 				$scope.loadUserInfo();
@@ -95,7 +95,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 					$scope.error.password = 'wrong password';
 				}
 				else if(data.message === 'ok') {
-					growl.addSuccessMessage('<b>Yay !</b> Password changed.');
+					growl.success('<b>Yay !</b> Password changed.');
 					$scope.cleanScreen();
 				}
 			}).
@@ -114,7 +114,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 				else if(data.message === 'ok') {
 					$http.get('/api/logout').
 	                    success(function(data, status, headers, config) {
-	                        growl.addSuccessMessage('Your account was just deleted.');
+	                        growl.success('Your account was just deleted.');
 	                        currentSession.setAuthenticated(false);
 	                        $location.url('/');
 	                    }).

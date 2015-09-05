@@ -27,6 +27,8 @@ var app = angular.module('sample-app', ['ngResource', 'ngRoute', 'ngSanitize', '
 				}).
 				otherwise({redirectTo: "/somethingthatdoesnotexist"});
 
-			growlProvider.globalTimeToLive(8000);
-    		growlProvider.globalEnableHtml(true);
+			growlProvider.globalPosition('bottom-right');
+			growlProvider.globalTimeToLive(5000);
+			growlProvider.globalDisableCountDown(true);
+			growlProvider.globalReversedOrder(true);
 		}]);

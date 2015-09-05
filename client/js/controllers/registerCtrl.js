@@ -23,7 +23,7 @@ app.controller('registerCtrl', ['$scope', '$http', '$location' , 'growl', functi
 					if(message.toLowerCase().indexOf('username') != -1){
 						$scope.error.username = message;
 					} else {
-						growl.addSuccessMessage('<b>Welcome to sample app !</b><br/>It\'s nice to have you here.');
+						growl.success('<b>Welcome to sample app !</b><br/>It\'s nice to have you here.');
 						$location.url('/objects');
 					}
 				}).
