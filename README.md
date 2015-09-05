@@ -53,6 +53,7 @@ We use [Protractor](https://github.com/angular/protractor). It's an end to end t
 **1 - Get it**
 
 >$ wherever>npm install -g protractor
+>$ wherever>webdriver-manager update --standalone
 
 **2 - Start your node server**
 
@@ -61,6 +62,7 @@ See above.
 **3 - Start your webdriver**
 
 >$ path\to\app\root\test>webdriver-manager start
+Also note that you need java to use that.
 
 **4 - Launch the tests suite**
 
