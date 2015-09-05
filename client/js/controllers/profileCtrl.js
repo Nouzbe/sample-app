@@ -114,7 +114,7 @@ app.controller('profileCtrl', ['$scope', '$http', '$location', 'currentSession',
 				else if(data.message === 'ok') {
 					$http.get('/api/logout').
 	                    success(function(data, status, headers, config) {
-	                        growl.addSuccessMessage('You account was just deleted.');
+	                        growl.addSuccessMessage('Your account was just deleted.');
 	                        currentSession.setAuthenticated(false);
 	                        $location.url('/');
 	                    }).

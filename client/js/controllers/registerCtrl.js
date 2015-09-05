@@ -1,4 +1,4 @@
-app.controller('registerCtrl', ['$scope', '$http', '$location', function ($scope, $http, $location){
+app.controller('registerCtrl', ['$scope', '$http', '$location' , 'growl', function ($scope, $http, $location, growl){
 
 	$scope.error = {
 		username: null,
@@ -23,6 +23,7 @@ app.controller('registerCtrl', ['$scope', '$http', '$location', function ($scope
 					if(message.toLowerCase().indexOf('username') != -1){
 						$scope.error.username = message;
 					} else {
+						growl.addSuccessMessage('<b>Welcome to sample app !</b><br/>It\'s nice to have you here.');
 						$location.url('/objects');
 					}
 				}).

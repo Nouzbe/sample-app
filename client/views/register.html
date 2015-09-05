@@ -19,13 +19,13 @@
                 </div>
 
                 <div class="input-wrapper">
-                    <input class="login-input" required id="password_block" name="password" type="Password"
+                    <input class="login-input" required id="password" name="password" type="Password"
                            placeholder="Password" ng-model="password" ng-change="error.password=null">
 
                     <span class="alert alert-danger" ng-show="error.password">{{error.password}}</span>
                 </div>
                 <div class="input-wrapper">
-                    <input class="login-input" required id="confirm_password" name="confirm_password" type="Password"
+                    <input class="login-input" required id="confirm-password" name="confirm_password" type="Password"
                            placeholder="Confirm password" ng-model="confirmPassword" ng-change="error.confirmPassword=null">
 
                     <span class="alert alert-danger" ng-show="error.confirmPassword">{{error.confirmPassword}}</span>

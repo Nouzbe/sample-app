@@ -10,14 +10,14 @@
                 	<span>username : {{username}}</span>
                 </div>
                 <div>
-                	<span>email : <a href="#" ng-click="showEmailForm()" tooltips tooltip-title="Click to change me." tooltip-side="right" tooltip-size="small">{{email}}</a></span>
+                	<span>email : <a id="email-update" href="#" ng-click="showEmailForm()" tooltips tooltip-title="Click to change me." tooltip-side="right" tooltip-size="small">{{email}}</a></span>
                 </div>
                 <div>
-                	<span>password : <a href="#" ng-click="showPasswordForm()">**********</a></span>
+                	<span>password : <a id="password-update" href="#" ng-click="showPasswordForm()">**********</a></span>
             	</div>
                 <br/>-----<br/>
                 <div class="delete">
-                    <a href="#" ng-click="showAccountForm()">Delete my account</a>
+                    <a id="account-deletion" href="#" ng-click="showAccountForm()">Delete my account</a>
                 </div>
             </div>
         </div>
@@ -25,43 +25,43 @@
             <div ng-show="emailUpdate">
                 <form ng-submit="updateEmail()">
                     <div class="input-wrapper">
-                        <input class="login-input" required type="email" placeholder="New email"
+                        <input id="email" class="login-input" required type="email" placeholder="New email"
                                ng-model="newEmail" ng-change="error.newEmail=null">
                         <span class="alert alert-danger" ng-show="error.newEmail">{{error.newEmail}}</span>
                     </div>
                     <div class="input-wrapper">
-                        <input class="login-input" required type="Password"
+                        <input id="password-for-email" class="login-input" required type="Password"
                                placeholder="Password" ng-model="password" ng-change="error.password=null">
 
                         <span class="alert alert-danger" ng-show="error.password">{{error.password}}</span>
                     </div>
                     <div class="pull-right">
-                        <button type="submit" class="submit-button">Change my email</button>
+                        <button id="email-submit" type="submit" class="submit-button">Change my email</button>
                     </div>
                 </form>
             </div>
             <div ng-show="passwordUpdate">
                 <form ng-submit="updatePassword()">
                     <div class="input-wrapper">
-                        <input class="login-input" required type="Password"
+                        <input id="password-for-password" class="login-input" required type="Password"
                                placeholder="Current password" ng-model="password" ng-change="error.password=null">
 
                         <span class="alert alert-danger" ng-show="error.password">{{error.password}}</span>
                     </div>
                     <div class="input-wrapper">
-                        <input class="login-input" required type="Password"
+                        <input id="new-password" class="login-input" required type="Password"
                                placeholder="New Password" ng-model="newPassword" ng-change="error.newPassword=null">
 
                         <span class="alert alert-danger" ng-show="error.newPassword">{{error.newPassword}}</span>
                     </div>
                     <div class="input-wrapper">
-                        <input class="login-input" required type="Password"
+                        <input id="confirm-new-password" class="login-input" required type="Password"
                                placeholder="Confirm new password" ng-model="confirmNewPassword" ng-change="error.confirmNewPassword=null">
 
                         <span class="alert alert-danger" ng-show="error.confirmNewPassword">{{error.confirmNewPassword}}</span>
                     </div>
                     <div class="pull-right">
-                        <button type="submit" class="submit-button">Change my password</button>
+                        <button id="password-submit" type="submit" class="submit-button">Change my password</button>
                     </div>
                 </form>
             </div>
@@ -69,13 +69,13 @@
                 <h3>You sure ?</h3>
                 <form ng-submit="deleteAccount()">
                     <div class="input-wrapper">
-                        <input class="login-input" required type="Password"
+                        <input class="login-input" required type="Password" id="password-for-account-deletion"
                                placeholder="Password" ng-model="password" ng-change="error.password=null">
 
                         <span class="alert alert-danger" ng-show="error.password">{{error.password}}</span>
                     </div>
                     <div class="pull-right">
-                        <button type="submit" class="submit-button" style="background-color: #800000; color:white;">Delete my account</button>
+                        <button id="account-deletion-submit" type="submit" class="submit-button" style="background-color: #800000; color:white;">Delete my account</button>
                     </div>
                 </form>
             </div>

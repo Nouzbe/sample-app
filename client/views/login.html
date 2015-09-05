@@ -5,12 +5,12 @@
 
             <form id="login_form" ng-submit="login()">
                 <div class="input-wrapper">
-                    <input class="login-input" required id="name" type="text" name="name" placeholder="Username"
+                    <input id="name" class="login-input" required id="name" type="text" name="name" placeholder="Username"
                            ng-model="username" ng-change="error.username=null">
                     <span class="alert alert-danger" ng-show="error.username">{{error.username}}</span>
                 </div>
                 <div class="input-wrapper">
-                    <input class="login-input" required id="password_block" name="password" type="Password"
+                    <input id="password" class="login-input" required id="password_block" name="password" type="Password"
                            placeholder="Password" ng-model="password" ng-change="error.password=null">
 
                     <span class="alert alert-danger" ng-show="error.password">{{error.password}}</span>
