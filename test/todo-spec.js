@@ -1,7 +1,4 @@
 var countPublicObjects = function(message) {
-    console.log('SEE ME');
-    console.log('type of message : ' + typeof(message));
-    console.log('message: ' + message);
     var before = message.indexOf(' are ') + ' are '.length;
     var after = message.indexOf(' public ');
     return parseInt(message.substring(before, after));
